@@ -13,6 +13,25 @@ namespace JuegoAdivinarNumero.Controllers
             return View();
         }
 
+        public ActionResult QuienJuega(string idJuega)
+        {
+            if (idJuega == "persona")
+            {
+                return PartialView("_JuegoPersona");
+            }
+            else
+            {
+                return PartialView("_JuegoComputadora");
+            }
+        }
+
+        //public string Comparar(int numPC, int numPersona)
+        //{
+        //    Services.AdivinarNumeroServices Adivinar = new Services.AdivinarNumeroServices();
+        //    string respuesta = Adivinar.Comparar(numPC, numPersona);
+        //    return respuesta;
+        //}
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
