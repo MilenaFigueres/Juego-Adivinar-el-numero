@@ -6,7 +6,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace JuegoAdivinarNumero.Models
 {
-    public abstract class Juego
+    public class Juego
     {
         public int numeroAleatorio { get; set; }
         public int numeroAdivinado { get; set; }

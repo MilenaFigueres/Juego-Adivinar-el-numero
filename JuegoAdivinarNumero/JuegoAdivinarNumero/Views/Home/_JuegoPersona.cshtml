@@ -1,0 +1,64 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<link href="~/Content/StyleSheet.css" rel="stylesheet" />
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<link href="~/Content/Site.css" rel="stylesheet" />
+<div>
+    @Html.Partial("~/Views/Home/_Barra.cshtml")></div>
+<div id="ok" class="cuadro1">
+    <div>
+        <h3 class="subtitulo">¡Tu adivinarás! Yo pensaré en un número entre 0 y 100</h3>
+    </div>
+    <br /><br />
+    <div>
+        <h4>¿Cuál crees que es?</h4>
+    </div>
+    <div>
+        <div id="numero-aleatorio" style="display:none">?</div>
+    </div>
+    <div>
+        <input id="ingresaNum" type="text" />
+        <br><br>
+        <input class="boton1" type="button" id="boton" value="Enviar">
+    </div>
+    <br /><br />
+    <div id="tamanio" style="display:none;">
+        <p>Mi número es:</p>
+        <p id="tamanio">?</p>
+    </div>
+</div>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript">
+    var numero = 0;
+    numeroAleatorio(0, 100);
+    function numeroAleatorio(min, max) {
+        //debugger;
+        var num = Math.round(Math.random() * (max - min) + min);
+        $('#numero-aleatorio').text(num);
+        numero = num;
+    }
+</script>
+
+<script type="text/javascript">
+    $("#boton").click(function () {
+    setTimeout(function () {
+        $("#tamanio").fadeIn(1500);
+    }, 3000);
+    //debugger;
+});
+</script>
+
+<script>
+    $("#boton").click(function () {
+        $.ajax({
+            type: 'GET',
+            url: '@Url.Action("Comparar", "Home")',
+            data: { numPC: numero, numPersona: $('#ingresaNum').val() },
+        }).done(function (data) {
+            $('#tamanio').html(data);
+        });
+    });
+</script>

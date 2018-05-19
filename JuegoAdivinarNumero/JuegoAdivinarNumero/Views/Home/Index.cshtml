@@ -4,6 +4,8 @@
     ViewBag.Title = "Home Page";
 }
 <head>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
     <link href="~/Content/StyleSheet.css" rel="stylesheet" />
     <style>
     </style>
@@ -15,13 +17,10 @@
     </div>
     @using (Html.BeginForm())
     {
-        <div class="row">
-            <div class="form-group">
-                <input class="botones" type="button" value="Adivinas tu" onclick="location.href='@Url.Action("QuienJuega", "Home")' + '?idJuega=' + 'persona';" />
-            </div>
-            <div class="form-group">
-                <input class="botones" type="button" value="Adivino yo" onclick="location.href='@Url.Action("QuienJuega", "Home")' + '?idJuega=' + 'computadora';" />
-            </div>
+        <br />
+        <div class="form-group">
+            <input class="botones" type="button" value="Adivinas tu" onclick="location.href='@Url.Action("QuienJuega", "Home")' + '?idJuega=' + 'persona';" />
+            <input class="botones" type="button" value="Adivino yo" onclick="location.href='@Url.Action("QuienJuega", "Home")' + '?idJuega=' + 'computadora';" />
         </div>
     }
 </div>

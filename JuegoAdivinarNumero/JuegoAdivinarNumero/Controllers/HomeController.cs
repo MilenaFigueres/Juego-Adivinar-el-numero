@@ -25,13 +25,35 @@ namespace JuegoAdivinarNumero.Controllers
             }
         }
 
-        //public string Comparar(int numPC, int numPersona)
-        //{
-        //    Services.AdivinarNumeroServices Adivinar = new Services.AdivinarNumeroServices();
-        //    string respuesta = Adivinar.Comparar(numPC, numPersona);
-        //    return respuesta;
-        //}
+        public ActionResult NuevoJuego(string id)
+        {
+            if (id == "pc")
+            {
+                return PartialView("_JugarNuevoComputadora");
+            }
+            else
+            {
+                return PartialView("_JugarNuevoPersona");
+            }
+        }
+        public string Comparar(int numPC, int numPersona)
+        {
+            Services.AdivinarNumeroServices Adivinar = new Services.AdivinarNumeroServices();
+            string respuesta = Adivinar.Comparar(numPC, numPersona);
+            return respuesta;
+        }
 
+        public ActionResult SeguirJuego(string idJuega)
+        {
+            if (idJuega == "Si")
+            {
+                return PartialView("_Index");
+            }
+            else
+            {
+                return PartialView("_Finaliza");
+            }
+        }
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

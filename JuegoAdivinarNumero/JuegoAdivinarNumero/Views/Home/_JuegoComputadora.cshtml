@@ -1,0 +1,95 @@
+﻿@model JuegoAdivinarNumero.Models.Juego
+@{
+    ViewBag.Title = "Home Page";
+}
+<link href="~/Content/StyleSheet.css" rel="stylesheet" />
+<link href="~/Content/Site.css" rel="stylesheet" />
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<div id="ok" class="">
+    <div>
+        @Html.Partial("~/Views/Home/_Barra.cshtml")
+    </div>
+    <div class="cuadro1">
+        <div>
+            <div class="subtitulo">
+                <h2>¡Yo adivinaré! Te toca pensar un número entre 0 y 100</h2>
+            </div>
+            <div id="espera" style="display:none;">
+                <h3>¿Ya lo tienes?</h3>
+            </div>
+            @*@foreach (var adivino in ejercicio1Eventbrite.Models.JuegoComputadora.Where(i => i.adivino == false))*@
+            @*  *@
+            <div id="tamanio" style="display:none;">
+                <div>
+                    <p>Tu número es el: </p>
+                    <div id="numero-aleatorio">?</div>
+                </div>
+                <div>
+                    <br />
+                    <p>Tu número es:</p>
+                    <ul class="row">
+                        <li><input id="Radio1" type="radio" name="tamano" value="1" />Más grande</li>
+                        <li><input id="Radio1" type="radio" name="tamano" value="2" />Mas chico</li>
+                        <li id="radio3"><input id="Radio1" type="radio" name="tamano" value="3" />Igual</li>
+                    </ul>
+                    <br>
+                    <input class="boton1" type="button" id="boton" value="Enviar">
+                </div>
+            </div>
+        </div>
+        @*}*@
+    </div>
+</div>
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript">
+    var numero = 0;
+    numeroAleatorio(1, 100);
+    function numeroAleatorio(min, max) {
+        //debugger;
+        var num = Math.round(Math.random() * (max - min) + min);
+        $('#numero-aleatorio').text(num);
+        numero = num;
+    }
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        setTimeout(function () {
+            $("#espera").fadeIn(1000);
+        }, 2500);
+        //debugger;
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        setTimeout(function () {
+            $("#tamanio").fadeIn(4500);
+        }, 5500);
+        //debugger;
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#boton").click(function () {
+            var numeroAleat = numero;
+            if ($("input[value='1']:radio").is(':checked')) {
+                min = numeroAleatorio(numeroAleat, 100);
+            } else if ($("input[value='2']:radio").is(':checked')) {
+                numeroAleatorio(0, numeroAleat);
+            }
+            else {
+                 $.ajax({
+            type: 'GET',
+            url: '@Url.Action("NuevoJuego", "Home")',
+            data: { id:'pc' },
+        }).done(function (data) {
+            $('#ok').html(data); debugger;
+        });
+            }
+        });
+    });
+</script>
