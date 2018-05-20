@@ -272,12 +272,11 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Home\_JugarNuevoComputadora.cshtml" />
     <Content Include="Views\Home\_JuegoPersona.cshtml" />
     <Content Include="Views\Home\_JuegoComputadora.cshtml" />
     <Content Include="Views\Home\_Barra.cshtml" />
     <Content Include="Views\Home\_Finaliza.cshtml" />
-    <Content Include="Views\Home\_JugarNuevoPersona.cshtml" />
+    <Content Include="Views\Home\_Titulo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

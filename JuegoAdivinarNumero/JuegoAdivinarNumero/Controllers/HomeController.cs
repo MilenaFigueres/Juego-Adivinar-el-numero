@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using JuegoAdivinarNumero.Models;
 
 namespace JuegoAdivinarNumero.Controllers
 {
@@ -21,21 +22,22 @@ namespace JuegoAdivinarNumero.Controllers
             }
             else
             {
+                Session["limiteIzquierdo"] = 1; Session["limiteDerecho"] = 100;
                 return PartialView("_JuegoComputadora");
             }
         }
 
-        public ActionResult NuevoJuego(string id)
-        {
-            if (id == "pc")
-            {
-                return PartialView("_JugarNuevoComputadora");
-            }
-            else
-            {
-                return PartialView("_JugarNuevoPersona");
-            }
-        }
+        //public ActionResult NuevoJuego(string id)
+        //{
+        //    if (id == "pc")
+        //    {
+        //        return PartialView("_JugarNuevoComputadora");
+        //    }
+        //    else
+        //    {
+        //        return PartialView("_JugarNuevoPersona");
+        //    }
+        //}
         public string Comparar(int numPC, int numPersona)
         {
             Services.AdivinarNumeroServices Adivinar = new Services.AdivinarNumeroServices();
@@ -47,13 +49,31 @@ namespace JuegoAdivinarNumero.Controllers
         {
             if (idJuega == "Si")
             {
-                return PartialView("_Index");
+                return PartialView("Index");
             }
             else
             {
                 return PartialView("_Finaliza");
             }
         }
+
+        public int busquedaBinaria(int numeroAleatorio, string tamanio)
+        {
+            Services.AdivinarNumeroServices Adivinar = new Services.AdivinarNumeroServices();
+            var limiteIzquierdo = (int)Session["limiteIzquierdo"];
+            var limiteDerecho = (int)Session["limiteDerecho"];
+            var respuesta = Adivinar.busquedaBinaria(numeroAleatorio, tamanio, limiteIzquierdo, limiteDerecho);
+            Session["limiteIzquierdo"] = respuesta["limiteIzquierdo"];
+            Session["limiteDerecho"] = respuesta["limiteDerecho"];
+            return respuesta["numeroElegido"];
+        }
+
+        public ActionResult Editar(int id)
+        {
+            Juego modelo = new Juego();
+            return PartialView(modelo);
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

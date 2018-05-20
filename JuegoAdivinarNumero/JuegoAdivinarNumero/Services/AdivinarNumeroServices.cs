@@ -31,5 +31,27 @@ namespace JuegoAdivinarNumero.Services
 
             return jp.respuesta;
         }
+
+        public Dictionary<string, int> busquedaBinaria(int numeroAleatorio, string tamanio, int limiteIzq, int limiteDer)
+        {
+            var lista = new Dictionary<string, int>();
+            int numeroElegido = 0;
+
+            if (tamanio == "grande")
+            {
+                limiteIzq = numeroAleatorio;
+            }
+            else
+            {
+                limiteDer = numeroAleatorio;
+            }
+            numeroElegido = Math.Abs((limiteDer - limiteIzq) / 2) + limiteIzq;
+
+            lista.Add("limiteIzquierdo", limiteIzq);
+            lista.Add("limiteDerecho", limiteDer);
+            lista.Add("numeroElegido", numeroElegido);
+            return lista;
+        }
+
     }
 }

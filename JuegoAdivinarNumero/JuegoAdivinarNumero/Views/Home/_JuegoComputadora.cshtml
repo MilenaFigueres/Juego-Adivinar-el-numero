@@ -1,45 +1,55 @@
 ﻿@model JuegoAdivinarNumero.Models.Juego
 @{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.CSHTML";
 }
-<link href="~/Content/StyleSheet.css" rel="stylesheet" />
-<link href="~/Content/Site.css" rel="stylesheet" />
-<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<style>
+    .botones {
+        margin-right: 0px;
+    }
+</style>
 <div id="ok" class="">
-    <div>
-        @Html.Partial("~/Views/Home/_Barra.cshtml")
-    </div>
     <div class="cuadro1">
-        <div>
-            <div class="subtitulo">
-                <h2>¡Yo adivinaré! Te toca pensar un número entre 0 y 100</h2>
-            </div>
+        <div class="subtitulo">
+            <p>¡Yo adivinaré! Te toca pensar un número entre 1 y 100</p>
+        </div>
+        <div class="palabras">
             <div id="espera" style="display:none;">
-                <h3>¿Ya lo tienes?</h3>
+                <p style="font-size:23px;">¿Ya lo tienes?</p>
             </div>
-            @*@foreach (var adivino in ejercicio1Eventbrite.Models.JuegoComputadora.Where(i => i.adivino == false))*@
-            @*  *@
             <div id="tamanio" style="display:none;">
                 <div>
                     <p>Tu número es el: </p>
                     <div id="numero-aleatorio">?</div>
                 </div>
-                <div>
+                <div  class="row">
                     <br />
                     <p>Tu número es:</p>
-                    <ul class="row">
+                    <ul>
                         <li><input id="Radio1" type="radio" name="tamano" value="1" />Más grande</li>
                         <li><input id="Radio1" type="radio" name="tamano" value="2" />Mas chico</li>
                         <li id="radio3"><input id="Radio1" type="radio" name="tamano" value="3" />Igual</li>
                     </ul>
                     <br>
-                    <input class="boton1" type="button" id="boton" value="Enviar">
+                    <input class="botones" type="button" id="boton" value="Enviar">
                 </div>
             </div>
         </div>
-        @*}*@
     </div>
 </div>
+<div id="oculto" class="cuadro1" style="display:none;">
+    <div>
+        <h2>¡GANÉ, BUENA PARTIDA!</h2>
+    </div>
+    <div>
+        <h3>¿Querés jugar una vez más?</h3>
+        <div class="form-group">
+            <input class="botones" type="button" value="Si" onclick="location.href='@Url.Action("SeguirJuego", "Home")' + '?idJuega=' + 'Si';" />
+            <input class="botones" type="button" value="No" onclick="location.href='@Url.Action("SeguirJuego", "Home")' + '?idJuega=' + 'No';" />
+        </div>
+    </div>
+</div>
+
 
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -47,7 +57,6 @@
     var numero = 0;
     numeroAleatorio(1, 100);
     function numeroAleatorio(min, max) {
-        //debugger;
         var num = Math.round(Math.random() * (max - min) + min);
         $('#numero-aleatorio').text(num);
         numero = num;
@@ -57,39 +66,44 @@
 <script type="text/javascript">
     $(document).ready(function () {
         setTimeout(function () {
-            $("#espera").fadeIn(1000);
-        }, 2500);
-        //debugger;
+            $("#espera").fadeIn(300);
+            $("#tamanio").fadeIn(4500);
+        }, 3000);
     });
 </script>
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        setTimeout(function () {
-            $("#tamanio").fadeIn(4500);
-        }, 5500);
-        //debugger;
-    });
-</script>
 
 <script type="text/javascript">
     $(document).ready(function () {
         $("#boton").click(function () {
-            var numeroAleat = numero;
+            var numeroAleat = $('#numero-aleatorio').text();
             if ($("input[value='1']:radio").is(':checked')) {
-                min = numeroAleatorio(numeroAleat, 100);
+                $.ajax({
+                    type: 'GET',
+                    url: '@Url.Action("busquedaBinaria", "Home")',
+                    data: { numeroAleatorio: numeroAleat, tamanio: 'grande' },
+                }).done(function (data) {
+                    $('#numero-aleatorio').html(data);
+                });
             } else if ($("input[value='2']:radio").is(':checked')) {
-                numeroAleatorio(0, numeroAleat);
+                $.ajax({
+                    type: 'GET',
+                    url: '@Url.Action("busquedaBinaria", "Home")',
+                    data: { numeroAleatorio: numeroAleat, tamanio: 'chico' },
+                }).done(function (data) {
+                    $('#numero-aleatorio').html(data);
+                });
             }
             else {
-                 $.ajax({
-            type: 'GET',
-            url: '@Url.Action("NuevoJuego", "Home")',
-            data: { id:'pc' },
-        }).done(function (data) {
-            $('#ok').html(data); debugger;
-        });
+                ocultar();
             }
         });
     });
+</script>
+
+<script>
+    function ocultar() {
+        $("#ok").hide();
+        $("#oculto").show();
+    }
 </script>

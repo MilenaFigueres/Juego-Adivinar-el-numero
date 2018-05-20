@@ -1,33 +1,51 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.CSHTML";
 }
+<style>
+    .botones {
+        margin-right: 0px;
+    }
+</style>
 
-<link href="~/Content/StyleSheet.css" rel="stylesheet" />
-<link href="~/Content/bootstrap.css" rel="stylesheet" />
-<link href="~/Content/Site.css" rel="stylesheet" />
-<div>
-    @Html.Partial("~/Views/Home/_Barra.cshtml")></div>
 <div id="ok" class="cuadro1">
+    <div class="subtitulo">
+        <p>¡Tu adivinarás!  Yo pensaré en un número entre 1 y 100</p>
+    </div>
+    <br />
+    <div class="palabras">
+        <div>
+            <p>¿Cuál crees que es?</p>
+        </div>
+        <div>
+            <div id="numero-aleatorio" style="display:none">?</div>
+        </div>
+        <div>
+            <input id="ingresaNum" type="text" />
+            <br><br>
+            <input class="botones" type="button" id="boton" value="Enviar">
+        </div>
+        <br /><br />
+        <div id="tamanio" style="display:none;">
+            <p>Mi número es:</p>
+            <p id="tamanio">?</p>
+        </div>
+    </div>
+</div>
+
+<div id="oculto" class="cuadro1" style="display:none;">
     <div>
-        <h3 class="subtitulo">¡Tu adivinarás! Yo pensaré en un número entre 0 y 100</h3>
-    </div>
-    <br /><br />
-    <div>
-        <h4>¿Cuál crees que es?</h4>
+        <h2>¡FELICIDADES, GANASTE!</h2>
     </div>
     <div>
-        <div id="numero-aleatorio" style="display:none">?</div>
+        <h3>¿Querés jugar una vez más?</h3>
+        <div class="form-group">
+            <input class="botones" type="button" value="Si" onclick="location.href='@Url.Action("SeguirJuego", "Home")' + '?idJuega=' + 'Si';" />
+            <input class="botones" type="button" value="No" onclick="location.href='@Url.Action("SeguirJuego", "Home")' + '?idJuega=' + 'No';" />
+        </div>
     </div>
-    <div>
-        <input id="ingresaNum" type="text" />
-        <br><br>
-        <input class="boton1" type="button" id="boton" value="Enviar">
-    </div>
-    <br /><br />
-    <div id="tamanio" style="display:none;">
-        <p>Mi número es:</p>
-        <p id="tamanio">?</p>
-    </div>
+
+
 </div>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -35,7 +53,6 @@
     var numero = 0;
     numeroAleatorio(0, 100);
     function numeroAleatorio(min, max) {
-        //debugger;
         var num = Math.round(Math.random() * (max - min) + min);
         $('#numero-aleatorio').text(num);
         numero = num;
@@ -44,11 +61,10 @@
 
 <script type="text/javascript">
     $("#boton").click(function () {
-    setTimeout(function () {
-        $("#tamanio").fadeIn(1500);
-    }, 3000);
-    //debugger;
-});
+        setTimeout(function () {
+            $("#tamanio").fadeIn(1500);
+        }, 3000);
+    });
 </script>
 
 <script>
@@ -58,7 +74,17 @@
             url: '@Url.Action("Comparar", "Home")',
             data: { numPC: numero, numPersona: $('#ingresaNum').val() },
         }).done(function (data) {
-            $('#tamanio').html(data);
+            if (data == "Felicidades") {
+                ocultar();
+            }
+            else { $('#tamanio').html(data); }
         });
     });
+</script>
+
+<script>
+    function ocultar() {
+        $("#ok").hide();
+        $("#oculto").show();
+    }
 </script>
