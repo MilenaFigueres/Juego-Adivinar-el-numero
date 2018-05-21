@@ -1,17 +1,13 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.CSHTML";
 }
 
 <link href="~/Content/StyleSheet.css" rel="stylesheet" />
 
-<div id="popup" class="cuadro1">
+<div class="saludo">
     <div>
-        <h2>¡GRACIAS POR JUGAR CONMIGO!!</h2>
+        <p>¡GRACIAS POR JUGAR CONMIGO!</p>
     </div>
 </div>
 
-<script type="text/javascript">
-    function show_popup() {
-        $("#popup").modal();
-    }
-</script>  

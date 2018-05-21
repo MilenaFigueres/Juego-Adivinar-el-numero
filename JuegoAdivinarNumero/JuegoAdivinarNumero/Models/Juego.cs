@@ -9,10 +9,11 @@ using System.Web.Mvc;
 
 namespace JuegoAdivinarNumero.Models
 {
-    public class Juego
+    public class Juego : ValidationAttribute
     {
         [Range(1, 100, ErrorMessage = "El número debe estar entre 1 y 100")]
         public int numeroAleatorio { get; set; }
+        [Range(1, 100, ErrorMessage = "El número debe estar entre 1 y 100")]
         public int numeroAdivinado { get; set; }
         public string respuesta { get; set; }
     }

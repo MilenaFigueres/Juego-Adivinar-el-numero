@@ -3,11 +3,7 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.CSHTML";
 }
-<style>
-    .botones {
-        margin-right: 0px;
-    }
-</style>
+<link href="~/Animation/animation.css" rel="stylesheet" />
 <div id="ok" class="">
     <div class="cuadro1">
         <div class="subtitulo">
@@ -15,14 +11,14 @@
         </div>
         <div class="palabras">
             <div id="espera" style="display:none;">
-                <p style="font-size:23px;">¿Ya lo tienes?</p>
+                <p class="animated flash" style="font-size:30px;  animation-duration:2s;">¿Ya lo tienes?</p>
             </div>
-            <div id="tamanio" style="display:none;">
-                <div>
+            <div>
+                <div id="tamanio" style="display:none;">
                     <p>Tu número es el: </p>
                     <div id="numero-aleatorio">?</div>
                 </div>
-                <div  class="row">
+                <div id="tamanio2" style="display:none;">
                     <br />
                     <p>Tu número es:</p>
                     <ul>
@@ -38,11 +34,11 @@
     </div>
 </div>
 <div id="oculto" class="cuadro1" style="display:none;">
-    <div>
-        <h2>¡GANÉ, BUENA PARTIDA!</h2>
+    <div class="titulo">
+        <p>¡GANÉ, BUENA PARTIDA!</p>
     </div>
-    <div>
-        <h3>¿Querés jugar una vez más?</h3>
+    <div class="subtitulo">
+        <p>¿Querés jugar una vez más?</p>
         <div class="form-group">
             <input class="botones" type="button" value="Si" onclick="location.href='@Url.Action("SeguirJuego", "Home")' + '?idJuega=' + 'Si';" />
             <input class="botones" type="button" value="No" onclick="location.href='@Url.Action("SeguirJuego", "Home")' + '?idJuega=' + 'No';" />
@@ -66,11 +62,19 @@
 <script type="text/javascript">
     $(document).ready(function () {
         setTimeout(function () {
-            $("#espera").fadeIn(300);
-            $("#tamanio").fadeIn(4500);
-        }, 3000);
+            $("#espera").fadeIn(600);
+            $("#tamanio").fadeIn(5000);
+        }, 3400);
     });
 </script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        setTimeout(function () {
+            $("#tamanio2").fadeIn(5000);
+        }, 5400);
+    });
+</script>
+
 
 
 <script type="text/javascript">

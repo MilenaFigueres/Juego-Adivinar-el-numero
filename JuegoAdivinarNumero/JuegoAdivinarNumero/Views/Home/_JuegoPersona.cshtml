@@ -1,57 +1,61 @@
-﻿@{
+﻿@model JuegoAdivinarNumero.Models.Juego
+@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.CSHTML";
 }
-<style>
-    .botones {
-        margin-right: 0px;
-    }
-</style>
-
+<link href="~/Animation/animation.css" rel="stylesheet" />
 <div id="ok" class="cuadro1">
     <div class="subtitulo">
         <p>¡Tu adivinarás!  Yo pensaré en un número entre 1 y 100</p>
     </div>
     <br />
-    <div class="palabras">
-        <div>
-            <p>¿Cuál crees que es?</p>
-        </div>
-        <div>
-            <div id="numero-aleatorio" style="display:none">?</div>
-        </div>
-        <div>
-            <input id="ingresaNum" type="text" />
-            <br><br>
-            <input class="botones" type="button" id="boton" value="Enviar">
-        </div>
-        <br /><br />
-        <div id="tamanio" style="display:none;">
-            <p>Mi número es:</p>
-            <p id="tamanio">?</p>
-        </div>
-    </div>
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
+        <fieldset>
+            <div class="palabras">
+                <div>
+                    <p>¿Cuál crees que es?</p>
+                    <input class="animated infinite pulse" id="ingresaNum" type="text" />
+                    <div class="animated infinite pulse">
+                        @*@Html.LabelFor(model => model.numeroAleatorio)
+                        @Html.EditorFor(model => model.numeroAleatorio, new {id= "ingresaNum" })
+                        @Html.ValidationMessageFor(model => model.numeroAleatorio)
+                    </div>*@
+                </div>
+                <div>
+                    <div id="numero-aleatorio" style="display:none">?</div>
+                </div>
+                <br />
+                <div>
+                    <input class="botones" type="button" id="boton" value="Enviar">
+                </div>
+                <br />
+                <div id="tamanio" style="display:none;color:red">
+                    <p>Mi número es:</p>
+                    <p id="tamanio">?</p>
+                </div>
+            </div>
+        </fieldset>
+    }
 </div>
-
 <div id="oculto" class="cuadro1" style="display:none;">
-    <div>
-        <h2>¡FELICIDADES, GANASTE!</h2>
+    <div class="titulo">
+        <p>¡FELICIDADES, GANASTE!</p>
     </div>
-    <div>
-        <h3>¿Querés jugar una vez más?</h3>
+    <div class="subtitulo">
+        <p>¿Querés jugar una vez más?</p>
         <div class="form-group">
             <input class="botones" type="button" value="Si" onclick="location.href='@Url.Action("SeguirJuego", "Home")' + '?idJuega=' + 'Si';" />
             <input class="botones" type="button" value="No" onclick="location.href='@Url.Action("SeguirJuego", "Home")' + '?idJuega=' + 'No';" />
         </div>
     </div>
-
-
 </div>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript">
-    var numero = 0;
-    numeroAleatorio(0, 100);
+    var numero = 1;
+    numeroAleatorio(1, 100);
     function numeroAleatorio(min, max) {
         var num = Math.round(Math.random() * (max - min) + min);
         $('#numero-aleatorio').text(num);
@@ -62,8 +66,8 @@
 <script type="text/javascript">
     $("#boton").click(function () {
         setTimeout(function () {
-            $("#tamanio").fadeIn(1500);
-        }, 3000);
+            $("#tamanio").fadeIn(500);
+        }, 1000);
     });
 </script>
 
