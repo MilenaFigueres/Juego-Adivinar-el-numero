@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
+//Clase del Juego
 namespace JuegoAdivinarNumero.Models
 {
     public class Juego : ValidationAttribute

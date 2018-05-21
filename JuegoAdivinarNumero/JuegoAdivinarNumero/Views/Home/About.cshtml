@@ -1,7 +1,18 @@
 ﻿@{
     ViewBag.Title = "About";
+    Layout = "~/Views/Shared/_Layout.CSHTML";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+@*Vista parcial con explicación del funcionamiento del juego*@
+<link href="~/Content/StyleSheet.css" rel="stylesheet" />
 
-<p>Use this area to provide additional information.</p>
+<div class="ayuda">
+    <div>
+        <p>¡Hola! Gracias por intentar jugar conmigo. Si no sabes como jugarlo, tienes que saber que es tan simple como pensar en un número del 1 al 100 
+        y yo lo adivino. Si te parece mejor puedo yo pensar un número y tu adivinar. </p>
+    </div>
+    <br />
+    <div>
+        <input class="botones" type="button" id="boton" value="Volver al Juego" onclick="location.href='@Url.Action("SeguirJuego", "Home")' + '?idJuega=' + 'Si';" >
+    </div>
+</div>
+ 

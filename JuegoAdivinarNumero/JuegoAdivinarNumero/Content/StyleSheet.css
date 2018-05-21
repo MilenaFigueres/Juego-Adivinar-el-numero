@@ -8,12 +8,11 @@
     font-family: font-family: 'Amatic SC';
     position: relative;
     margin-bottom: 50px;
-    margin: 16rem; /*25rem;*/
+    margin: 34rem; /*25rem;*/
     padding: 1rem;
     border: 2px solid #fa442c;
     text-align: center;
     cursor: default;
-    /*background-color: #dbeaf1;*/
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
@@ -29,18 +28,18 @@
     position: relative;
     margin-bottom: 50px;
     margin-top: 10rem;
+    margin-left: 34rem;
+    margin-right:34rem;
     padding: 1rem;
     border: 2px solid #fa442c;
     text-align: center;
     cursor: default;
-    /*background-color: #dbeaf1;*/
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
     -webkit-box-shadow: 0px 1px 1px 0px rgba(255,255,255, .2), inset 0px 1px 1px 0px rgb(0,0,0);
     -moz-box-shadow: 0px 1px 1px 0px rgba(255,255,255, .2), inset 0px 1px 1px 0px rgb(0,0,0);
     box-shadow: 0px 1px 1px 0px rgba(255,255,255, .2), inset 0px 1px 1px 0px rgb(181, 180, 180);
-    /*margin-top: 23%;*/
     border-radius: 50px;
 }
 
@@ -129,6 +128,14 @@ li {
     font-size: 60px;
     font-weight:bold;
     margin-top: 15%;
+}
+
+.ayuda {
+    text-align:center;
+    font-family: 'Amatic SC';
+    font-size: 48px;
+    font-weight:bold;
+    margin-top: 7%;
 }
 
 @font-face {

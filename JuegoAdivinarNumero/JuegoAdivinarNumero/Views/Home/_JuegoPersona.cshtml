@@ -3,6 +3,7 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.CSHTML";
 }
+@*Vista a la que se ingresa cuando el usuario prefiere que adivine la computadora*@
 <link href="~/Animation/animation.css" rel="stylesheet" />
 <div id="ok" class="cuadro1">
     <div class="subtitulo">
@@ -53,6 +54,7 @@
 </div>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+@*Busca un número aleatorio como su primer intento*@
 <script type="text/javascript">
     var numero = 1;
     numeroAleatorio(1, 100);
@@ -63,6 +65,7 @@
     }
 </script>
 
+@*Da diferentes tiempos a los diferentes div, para que no todos aparezcan al mismo tiempo*@
 <script type="text/javascript">
     $("#boton").click(function () {
         setTimeout(function () {
@@ -71,6 +74,7 @@
     });
 </script>
 
+@*Cada vez que el usuario presiona el botón enviar, se direcciona al método Comparar, en el cual se compara el número seleccionado por la pc y el de la persona*@
 <script>
     $("#boton").click(function () {
         $.ajax({
@@ -86,6 +90,7 @@
     });
 </script>
 
+@*Oculta el div general si la computadora adivino el número y muestra otro div*@
 <script>
     function ocultar() {
         $("#ok").hide();

@@ -14,7 +14,7 @@ namespace JuegoAdivinarNumero.Controllers
             return View();
         }
 
-        public ActionResult QuienJuega(string idJuega)
+        public ActionResult QuienJuega(string idJuega)//Método que redirecciona a la página correspondiente, ya sea una persona o la computadora la que adivina
         {
             if (idJuega == "persona")
             {
@@ -26,26 +26,14 @@ namespace JuegoAdivinarNumero.Controllers
                 return PartialView("_JuegoComputadora");
             }
         }
-
-        //public ActionResult NuevoJuego(string id)
-        //{
-        //    if (id == "pc")
-        //    {
-        //        return PartialView("_JugarNuevoComputadora");
-        //    }
-        //    else
-        //    {
-        //        return PartialView("_JugarNuevoPersona");
-        //    }
-        //}
-        public string Comparar(int numPC, int numPersona)
+        public string Comparar(int numPC, int numPersona)//Método que realiza la comparación entre el número aleatorio seleccionado por la pc y el número que la persona piensa
         {
             Services.AdivinarNumeroServices Adivinar = new Services.AdivinarNumeroServices();
             string respuesta = Adivinar.Comparar(numPC, numPersona);
             return respuesta;
         }
 
-        public ActionResult SeguirJuego(string idJuega)
+        public ActionResult SeguirJuego(string idJuega)//Método que redirecciona al Inicio o Finaliza, dependiendo si el usuario quiere seguir jugando o no
         {
             if (idJuega == "Si")
             {
@@ -57,7 +45,7 @@ namespace JuegoAdivinarNumero.Controllers
             }
         }
 
-        public int busquedaBinaria(int numeroAleatorio, string tamanio)
+        public int busquedaBinaria(int numeroAleatorio, string tamanio)//Método que realiza la búsqueda binaria cada vez que el usuario le dice que su número es más < o más > que el adivinado
         {
             Services.AdivinarNumeroServices Adivinar = new Services.AdivinarNumeroServices();
             var limiteIzquierdo = (int)Session["limiteIzquierdo"];
@@ -67,17 +55,8 @@ namespace JuegoAdivinarNumero.Controllers
             Session["limiteDerecho"] = respuesta["limiteDerecho"];
             return respuesta["numeroElegido"];
         }
-
-        public ActionResult Editar(int id)
+        public ActionResult About()//Metodo que redirecciona a la explicación del juego
         {
-            Juego modelo = new Juego();
-            return PartialView(modelo);
-        }
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
             return View();
         }
 

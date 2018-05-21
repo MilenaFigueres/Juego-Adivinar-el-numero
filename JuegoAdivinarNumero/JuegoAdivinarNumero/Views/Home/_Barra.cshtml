@@ -1,6 +1,7 @@
 ﻿@{
     ViewBag.Title = "About";
 }
+@*Barra horizontal para dar estilo a la página*@
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -10,14 +11,8 @@
                 <span class="icon-bar"></span>
             </button>
             <img src="~/Images/evenbritePNG2.png" style="height:77px;width:156px;margin-top:9px;" />
-            @*@Html.ActionLink("Eventbrite", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
         </div>
         <div class="navbar-collapse collapse">
-            @*<ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>*@
             @Html.Partial("~/Views/Shared/_LoginPartial.cshtml")
         </div>
     </div>

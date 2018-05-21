@@ -3,6 +3,7 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.CSHTML";
 }
+@*Vista a la que se ingresa cuando el usuario prefiere que adivine la computadora*@
 <link href="~/Animation/animation.css" rel="stylesheet" />
 <div id="ok" class="">
     <div class="cuadro1">
@@ -49,6 +50,7 @@
 
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+@*Busca un número aleatorio como su primer intento*@
 <script type="text/javascript">
     var numero = 0;
     numeroAleatorio(1, 100);
@@ -59,6 +61,7 @@
     }
 </script>
 
+@*Da diferentes tiempos a los diferentes div, para que no todos aparezcan al mismo tiempo*@
 <script type="text/javascript">
     $(document).ready(function () {
         setTimeout(function () {
@@ -67,6 +70,8 @@
         }, 3400);
     });
 </script>
+
+@*Da diferentes tiempos a los diferentes div, para que no todos aparezcan al mismo tiempo*@
 <script type="text/javascript">
     $(document).ready(function () {
         setTimeout(function () {
@@ -75,8 +80,7 @@
     });
 </script>
 
-
-
+@*Cada vez que el usuario presiona el botón enviar, se verifica si el número seleccionado por la pc es <, > o = para realizar la búsqueda binaria*@
 <script type="text/javascript">
     $(document).ready(function () {
         $("#boton").click(function () {
@@ -105,6 +109,7 @@
     });
 </script>
 
+@*Oculta el div general si la computadora adivino el número y muestra otro div*@
 <script>
     function ocultar() {
         $("#ok").hide();
