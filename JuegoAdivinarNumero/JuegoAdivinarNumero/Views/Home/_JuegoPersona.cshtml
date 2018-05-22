@@ -37,11 +37,6 @@
         <fieldset>
             <div class="palabras">
                 <p>¿Cuál crees que es?</p>
-                @*<input class="animated infinite pulse numero-aleatorio-input" id="ingresaNum" type="number"  required pattern="^[1-9]$|^[1-9][0-9]$|^(100)$" title="Debe ser un número entre 1 y 100"/>*@
-                @*@Html.EditorFor(model => model.numeroAleatorio, new { htmlAttributes = new { @class = "animated infinite pulse numero-aleatorio-input", id = "ingresaNum" } })
-                    @Html.ValidationMessageFor(model => model.numeroAleatorio)*@
-
-                @*@Html.EditorFor(model => model.numeroAleatorio, new { htmlAttributes = new { @class = "animated infinite pulse numero-aleatorio-input", id = "ingresaNum" } })*@
                 @Html.TextBoxFor(model => model.numeroAleatorio, new { @class = "animated infinite pulse numero-aleatorio-input", id = "ingresaNum" })
                 <div></div>
                 @Html.ValidationMessageFor(model => model.numeroAleatorio, "", new { @class = "text-danger" })
