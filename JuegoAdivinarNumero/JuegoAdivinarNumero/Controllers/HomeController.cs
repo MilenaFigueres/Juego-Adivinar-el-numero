@@ -14,38 +14,53 @@ namespace JuegoAdivinarNumero.Controllers
             return View();
         }
 
-        public ActionResult QuienJuega(string idJuega)//Método que redirecciona a la página correspondiente, ya sea una persona o la computadora la que adivina
+        /// <summary>
+        /// Método que redirecciona a la página correspondiente, ya sea una persona o la computadora la que adivina
+        /// </summary>
+        /// <param name="idJuega"></param>
+        /// <returns></returns>
+        public ActionResult QuienJuega(string idJuega)
         {
             if (idJuega == "persona")
-            {
                 return PartialView("_JuegoPersona");
-            }
-            else
-            {
-                Session["limiteIzquierdo"] = 1; Session["limiteDerecho"] = 100;
-                return PartialView("_JuegoComputadora");
-            }
+
+            Session["limiteIzquierdo"] = 1; Session["limiteDerecho"] = 100;
+            return PartialView("_JuegoComputadora");
         }
-        public string Comparar(int numPC, int numPersona)//Método que realiza la comparación entre el número aleatorio seleccionado por la pc y el número que la persona piensa
+
+        /// <summary>
+        /// Método que realiza la comparación entre el número aleatorio seleccionado por la pc y el número que la persona piensa
+        /// </summary>
+        /// <param name="numPC"></param>
+        /// <param name="numPersona"></param>
+        /// <returns></returns>
+        public string Comparar(int numPC, int numPersona)
         {
             Services.AdivinarNumeroServices Adivinar = new Services.AdivinarNumeroServices();
             string respuesta = Adivinar.Comparar(numPC, numPersona);
             return respuesta;
         }
 
-        public ActionResult SeguirJuego(string idJuega)//Método que redirecciona al Inicio o Finaliza, dependiendo si el usuario quiere seguir jugando o no
+        /// <summary>
+        /// Método que redirecciona al Inicio o Finaliza, dependiendo si el usuario quiere seguir jugando o no
+        /// </summary>
+        /// <param name="idJuega"></param>
+        /// <returns></returns>
+        public ActionResult SeguirJuego(string idJuega)
         {
             if (idJuega == "Si")
-            {
                 return PartialView("Index");
-            }
-            else
-            {
-                return PartialView("_Finaliza");
-            }
+
+            return PartialView("_Finaliza");
         }
 
-        public int busquedaBinaria(int numeroAleatorio, string tamanio)//Método que realiza la búsqueda binaria cada vez que el usuario le dice que su número es más < o más > que el adivinado
+        /// <summary>
+        /// Método que realiza la búsqueda binaria cada vez que el usuario le dice que su número es más < o más > que el adivinado
+        /// </summary>
+        /// <param name="numeroAleatorio"></param>
+        /// <param name="tamanio"></param>
+        /// <returns></returns>
+        public int busquedaBinaria(int numeroAleatorio, string tamanio)
         {
             Services.AdivinarNumeroServices Adivinar = new Services.AdivinarNumeroServices();
             var limiteIzquierdo = (int)Session["limiteIzquierdo"];
@@ -53,18 +68,18 @@ namespace JuegoAdivinarNumero.Controllers
             var respuesta = Adivinar.busquedaBinaria(numeroAleatorio, tamanio, limiteIzquierdo, limiteDerecho);
             Session["limiteIzquierdo"] = respuesta["limiteIzquierdo"];
             Session["limiteDerecho"] = respuesta["limiteDerecho"];
+
             return respuesta["numeroElegido"];
         }
-        public ActionResult About()//Metodo que redirecciona a la explicación del juego
+
+        /// <summary>
+        /// Metodo que redirecciona a la explicación del juego
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult About()
         {
             return View();
         }
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
     }
 }
