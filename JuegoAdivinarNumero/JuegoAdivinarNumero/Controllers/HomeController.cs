@@ -19,7 +19,7 @@ namespace JuegoAdivinarNumero.Controllers
         /// </summary>
         /// <param name="idJuega"></param>
         /// <returns></returns>
-        public ActionResult QuienJuega(string idJuega)
+        public PartialViewResult QuienJuega(string idJuega)
         {
             if (idJuega == "persona")
                 return PartialView("_JuegoPersona");
@@ -46,7 +46,7 @@ namespace JuegoAdivinarNumero.Controllers
         /// </summary>
         /// <param name="idJuega"></param>
         /// <returns></returns>
-        public ActionResult SeguirJuego(string idJuega)
+        public PartialViewResult SeguirJuego(string idJuega)
         {
             if (idJuega == "Si")
                 return PartialView("Index");
