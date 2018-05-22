@@ -1,10 +1,31 @@
 ﻿@model JuegoAdivinarNumero.Models.Juego
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Adivinas tú";
     Layout = "~/Views/Shared/_Layout.CSHTML";
 }
+
+<style>
+    .btnPersonaEnviar {
+        margin: 0;
+    }
+
+    .numero-aleatorio-input {
+        border-radius: 16px;
+        text-align: center;
+        max-width: 100px;
+        min-height: 40px;
+        border-style: ridge;
+        border-color: #fcc93d;
+        outline: none;
+        line-height: 33px;
+    }
+</style>
+@Scripts.Render("~/bundles/jqueryval")
+
+
+
+
 @*Vista a la que se ingresa cuando el usuario prefiere que adivine la computadora*@
-<link href="~/Animation/animation.css" rel="stylesheet" />
 <div id="ok" class="cuadro1">
     <div class="subtitulo">
         <p>¡Tu adivinarás!  Yo pensaré en un número entre 1 y 100</p>
@@ -15,22 +36,22 @@
         @Html.ValidationSummary(true)
         <fieldset>
             <div class="palabras">
-                <div>
-                    <p>¿Cuál crees que es?</p>
-                    <input class="animated infinite pulse" id="ingresaNum" type="text" />
-                    <div class="animated infinite pulse">
-                        @*@Html.LabelFor(model => model.numeroAleatorio)
-                        @Html.EditorFor(model => model.numeroAleatorio, new {id= "ingresaNum" })
-                        @Html.ValidationMessageFor(model => model.numeroAleatorio)
-                    </div>*@
-                </div>
-                <div>
-                    <div id="numero-aleatorio" style="display:none">?</div>
-                </div>
+                <p>¿Cuál crees que es?</p>
+                @*<input class="animated infinite pulse numero-aleatorio-input" id="ingresaNum" type="number"  required pattern="^[1-9]$|^[1-9][0-9]$|^(100)$" title="Debe ser un número entre 1 y 100"/>*@
+                @*@Html.EditorFor(model => model.numeroAleatorio, new { htmlAttributes = new { @class = "animated infinite pulse numero-aleatorio-input", id = "ingresaNum" } })
+                    @Html.ValidationMessageFor(model => model.numeroAleatorio)*@
+
+                @*@Html.EditorFor(model => model.numeroAleatorio, new { htmlAttributes = new { @class = "animated infinite pulse numero-aleatorio-input", id = "ingresaNum" } })*@
+                @Html.TextBoxFor(model => model.numeroAleatorio, new { @class = "animated infinite pulse numero-aleatorio-input", id = "ingresaNum" })
+                <div></div>
+                @Html.ValidationMessageFor(model => model.numeroAleatorio, "", new { @class = "text-danger" })
+
+
+                <div class="animated infinite pulse"></div>
+                <div id="numero-aleatorio" style="display:none">?</div>
                 <br />
-                <div>
-                    <input class="botones" type="button" id="boton" value="Enviar">
-                </div>
+                <input class="botones btnPersonaEnviar" type="button" id="boton" value="Enviar">
+                <br />
                 <br />
                 <div id="tamanio" style="display:none;color:red">
                     <p>Mi número es:</p>
@@ -40,6 +61,7 @@
         </fieldset>
     }
 </div>
+
 <div id="oculto" class="cuadro1" style="display:none;">
     <div class="titulo">
         <p>¡FELICIDADES, GANASTE!</p>
@@ -53,47 +75,55 @@
     </div>
 </div>
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-@*Busca un número aleatorio como su primer intento*@
-<script type="text/javascript">
-    var numero = 1;
-    numeroAleatorio(1, 100);
-    function numeroAleatorio(min, max) {
-        var num = Math.round(Math.random() * (max - min) + min);
-        $('#numero-aleatorio').text(num);
-        numero = num;
-    }
-</script>
+@section scripts{
+    @*Busca un número aleatorio como su primer intento*@
+    <script type="text/javascript">
+        var numero = 1;
+        numeroAleatorio(1, 100);
+        function numeroAleatorio(min, max) {
+            var num = Math.round(Math.random() * (max - min) + min);
+            $('#numero-aleatorio').text(num);
+            numero = num;
+        }
+    </script>
 
-@*Da diferentes tiempos a los diferentes div, para que no todos aparezcan al mismo tiempo*@
-<script type="text/javascript">
-    $("#boton").click(function () {
-        setTimeout(function () {
-            $("#tamanio").fadeIn(500);
-        }, 1000);
-    });
-</script>
-
-@*Cada vez que el usuario presiona el botón enviar, se direcciona al método Comparar, en el cual se compara el número seleccionado por la pc y el de la persona*@
-<script>
-    $("#boton").click(function () {
-        $.ajax({
-            type: 'GET',
-            url: '@Url.Action("Comparar", "Home")',
-            data: { numPC: numero, numPersona: $('#ingresaNum').val() },
-        }).done(function (data) {
-            if (data == "Felicidades") {
-                ocultar();
+    @*Da diferentes tiempos a los diferentes div, para que no todos aparezcan al mismo tiempo*@
+    <script type="text/javascript">
+        $("#boton").click(function () {
+            if ($('#ingresaNum').valid() == true) {
+                setTimeout(function () {
+                    $("#tamanio").fadeIn(500);
+                }, 1000);
             }
-            else { $('#tamanio').html(data); }
+            else {
+                $("#tamanio").hide();
+            }
         });
-    });
-</script>
+    </script>
 
-@*Oculta el div general si la computadora adivino el número y muestra otro div*@
-<script>
-    function ocultar() {
-        $("#ok").hide();
-        $("#oculto").show();
-    }
-</script>
+    @*Cada vez que el usuario presiona el botón enviar, se direcciona al método Comparar, en el cual se compara el número seleccionado por la pc y el de la persona*@
+    <script>
+        $("#boton").click(function () {
+            if ($('#ingresaNum').valid() == true) {
+                $.ajax({
+                    type: 'GET',
+                    url: '@Url.Action("Comparar", "Home")',
+                    data: { numPC: numero, numPersona: $('#ingresaNum').val() },
+                }).done(function (data) {
+                    if (data == "Felicidades") {
+                        ocultar();
+                    }
+                    else { $('#tamanio').html(data); }
+                });
+            }
+        });
+    </script>
+
+    @*Oculta el div general si la computadora adivino el número y muestra otro div*@
+    <script>
+        function ocultar() {
+            $("#ok").hide();
+            $("#oculto").show();
+        }
+    </script>
+}

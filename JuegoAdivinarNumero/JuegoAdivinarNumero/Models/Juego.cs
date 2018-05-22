@@ -13,6 +13,8 @@ namespace JuegoAdivinarNumero.Models
     public class Juego : ValidationAttribute
     {
         [Range(1, 100, ErrorMessage = "El número debe estar entre 1 y 100")]
+        [RegularExpression("([0-9]+)", ErrorMessage = "Por favor ingrese un número válido")]
+        [Required(ErrorMessage = "Requerido")]
         public int numeroAleatorio { get; set; }
         [Range(1, 100, ErrorMessage = "El número debe estar entre 1 y 100")]
         public int numeroAdivinado { get; set; }

@@ -3,27 +3,23 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JuegoEventbrite</title>
-    <link rel="stylesheet prefetch" href="https://fonts.googleapis.com/css?family=Amatic+SC">
+    <title>@ViewBag.Title</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
-
-
+    @Scripts.Render("~/bundles/jqueryval")
 </head>
 <body>
    <div>
-       @Html.Partial("~/Views/Home/_Barra.cshtml")
+       @Html.Partial("~/Views/Shared/_Barra.cshtml")
    </div>
     <div>
         @Html.Partial("~/Views/Home/_Titulo.cshtml")
     </div>
     <div class="container body-content">
         @RenderBody()
-        @*<hr />*@
-        <footer>
-            @*<p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>*@
-        </footer>
     </div>
 
     @Scripts.Render("~/bundles/bootstrap")
