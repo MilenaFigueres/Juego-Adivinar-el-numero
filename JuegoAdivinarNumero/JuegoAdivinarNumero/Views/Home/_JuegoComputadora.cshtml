@@ -1,10 +1,15 @@
 ﻿@model JuegoAdivinarNumero.Models.Juego
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Adivino yo";
     Layout = "~/Views/Shared/_Layout.CSHTML";
 }
+<style>
+    .btnComputadoraEnviar {
+        margin: 0;
+    }
+</style>
+
 @*Vista a la que se ingresa cuando el usuario prefiere que adivine la computadora*@
-<link href="~/Animation/animation.css" rel="stylesheet" />
 <div id="ok" class="">
     <div class="cuadro1">
         <div class="subtitulo">
@@ -28,7 +33,7 @@
                         <li id="radio3"><input id="Radio1" type="radio" name="tamano" value="3" />Igual</li>
                     </ul>
                     <br>
-                    <input class="botones" type="button" id="boton" value="Enviar">
+                    <input class="botones btnComputadoraEnviar" type="button" id="boton" value="Enviar">
                 </div>
             </div>
         </div>
@@ -48,71 +53,71 @@
 </div>
 
 
+@section scripts{
+    @*Busca un número aleatorio como su primer intento*@
+    <script type="text/javascript">
+        var numero = 0;
+        numeroAleatorio(1, 100);
+        function numeroAleatorio(min, max) {
+            var num = Math.round(Math.random() * (max - min) + min);
+            $('#numero-aleatorio').text(num);
+            numero = num;
+        }
+    </script>
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-@*Busca un número aleatorio como su primer intento*@
-<script type="text/javascript">
-    var numero = 0;
-    numeroAleatorio(1, 100);
-    function numeroAleatorio(min, max) {
-        var num = Math.round(Math.random() * (max - min) + min);
-        $('#numero-aleatorio').text(num);
-        numero = num;
-    }
-</script>
-
-@*Da diferentes tiempos a los diferentes div, para que no todos aparezcan al mismo tiempo*@
-<script type="text/javascript">
-    $(document).ready(function () {
-        setTimeout(function () {
-            $("#espera").fadeIn(600);
-            $("#tamanio").fadeIn(5000);
-        }, 3400);
-    });
-</script>
-
-@*Da diferentes tiempos a los diferentes div, para que no todos aparezcan al mismo tiempo*@
-<script type="text/javascript">
-    $(document).ready(function () {
-        setTimeout(function () {
-            $("#tamanio2").fadeIn(5000);
-        }, 5400);
-    });
-</script>
-
-@*Cada vez que el usuario presiona el botón enviar, se verifica si el número seleccionado por la pc es <, > o = para realizar la búsqueda binaria*@
-<script type="text/javascript">
-    $(document).ready(function () {
-        $("#boton").click(function () {
-            var numeroAleat = $('#numero-aleatorio').text();
-            if ($("input[value='1']:radio").is(':checked')) {
-                $.ajax({
-                    type: 'GET',
-                    url: '@Url.Action("busquedaBinaria", "Home")',
-                    data: { numeroAleatorio: numeroAleat, tamanio: 'grande' },
-                }).done(function (data) {
-                    $('#numero-aleatorio').html(data);
-                });
-            } else if ($("input[value='2']:radio").is(':checked')) {
-                $.ajax({
-                    type: 'GET',
-                    url: '@Url.Action("busquedaBinaria", "Home")',
-                    data: { numeroAleatorio: numeroAleat, tamanio: 'chico' },
-                }).done(function (data) {
-                    $('#numero-aleatorio').html(data);
-                });
-            }
-            else {
-                ocultar();
-            }
+    @*Da diferentes tiempos a los diferentes div, para que no todos aparezcan al mismo tiempo*@
+    <script type="text/javascript">
+        $(document).ready(function () {
+            setTimeout(function () {
+                $("#espera").fadeIn(600);
+                $("#tamanio").fadeIn(5000);
+            }, 3400);
         });
-    });
-</script>
+    </script>
 
-@*Oculta el div general si la computadora adivino el número y muestra otro div*@
-<script>
-    function ocultar() {
-        $("#ok").hide();
-        $("#oculto").show();
-    }
-</script>
+    @*Da diferentes tiempos a los diferentes div, para que no todos aparezcan al mismo tiempo*@
+    <script type="text/javascript">
+        $(document).ready(function () {
+            setTimeout(function () {
+                $("#tamanio2").fadeIn(5000);
+            }, 5400);
+        });
+    </script>
+
+    @*Cada vez que el usuario presiona el botón enviar, se verifica si el número seleccionado por la pc es <, > o = para realizar la búsqueda binaria*@
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#boton").click(function () {
+                var numeroAleat = $('#numero-aleatorio').text();
+                if ($("input[value='1']:radio").is(':checked')) {
+                    $.ajax({
+                        type: 'GET',
+                        url: '@Url.Action("busquedaBinaria", "Home")',
+                        data: { numeroAleatorio: numeroAleat, tamanio: 'grande' },
+                    }).done(function (data) {
+                        $('#numero-aleatorio').html(data);
+                    });
+                } else if ($("input[value='2']:radio").is(':checked')) {
+                    $.ajax({
+                        type: 'GET',
+                        url: '@Url.Action("busquedaBinaria", "Home")',
+                        data: { numeroAleatorio: numeroAleat, tamanio: 'chico' },
+                    }).done(function (data) {
+                        $('#numero-aleatorio').html(data);
+                    });
+                }
+                else {
+                    ocultar();
+                }
+            });
+        });
+    </script>
+
+    @*Oculta el div general si la computadora adivino el número y muestra otro div*@
+    <script>
+        function ocultar() {
+            $("#ok").hide();
+            $("#oculto").show();
+        }
+    </script>
+}
